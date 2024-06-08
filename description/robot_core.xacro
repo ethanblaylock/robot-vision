@@ -16,7 +16,7 @@
     <joint name="chassis_joint" type="fixed">
         <parent link="base_link"/>
         <child link="chassis"/>
-        <origin xyz="-0.1 0 0.025"/>
+        <origin xyz="-0.1 0 0.15"/>
     </joint>
 
     <link name="chassis">
@@ -43,7 +43,7 @@
     <joint name="left_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="left_wheel"/>
-        <origin xyz="0 0.175 0" rpy="-${pi/2} 0 0"/>
+        <origin xyz="0 0.175 0.15" rpy="-${pi/2} 0 0"/>
         <axis xyz="0 0 1"/>
     </joint>
 
@@ -69,7 +69,7 @@
     <joint name="right_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="right_wheel"/>
-        <origin xyz="0 -0.175 0" rpy="${pi/2} 0 0"/>
+        <origin xyz="0 -0.175 0.15" rpy="${pi/2} 0 0"/>
         <axis xyz="0 0 -1"/>
     </joint>
 
@@ -114,5 +114,11 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_sphere>
     </link>
+
+    <gazebo reference="caster_wheel">
+        <material>Gazebo/Black</material>
+        <mu1 value="0.000"/>
+        <mu2 value="0.000"/>
+    </gazebo>
 
 </robot>
