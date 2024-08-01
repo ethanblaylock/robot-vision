@@ -40,8 +40,8 @@ def generate_launch_description():
     controller_manager = Node(
         package='controller_manager',
         executable='ros2_control_node',
-        parameters=[{'robot_description': robot_description},
-                controller_params],
+        parameters=[controller_params],
+        output="both",
         )
              
  
@@ -49,8 +49,8 @@ def generate_launch_description():
 
     diff_drive_spawner = Node(
         package="controller_manager",
-        executable="spawner.py",
-        arguments=["diff_cont"],
+        executable="spawner",
+        arguments=["diff_cont", "--controller-manager", "/controller_manager"],
     )
 
     delayed_diff_drive_spawner = RegisterEventHandler(
@@ -62,8 +62,8 @@ def generate_launch_description():
 
     joint_broad_spawner = Node(
         package="controller_manager",
-        executable="spawner.py",
-        arguments=["joint_broad"],
+        executable="spawner",
+        arguments=["joint_broad", "--controller-manager", "/controller_manager"],
     )
 
     delayed_joint_broad_spawner = RegisterEventHandler(
@@ -72,18 +72,18 @@ def generate_launch_description():
             on_start=[joint_broad_spawner],
         )
     )
-    message_transmit1 = Node(package='ros_gz_bridge', executable='parameter_bridge',
-                        arguments=['/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist'])
+    # message_transmit1 = Node(package='ros_gz_bridge', executable='parameter_bridge',
+    #                     arguments=['/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist'])
 
-    message_transmit2 = Node(package='ros_gz_bridge', executable='parameter_bridge',
-                        arguments=['/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V'])
+    # message_transmit2 = Node(package='ros_gz_bridge', executable='parameter_bridge',
+    #                     arguments=['/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V'])
 
 
-    message_transmit3 = Node(package='ros_gz_bridge', executable='parameter_bridge',
-                        arguments=['/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model'])
+    # message_transmit3 = Node(package='ros_gz_bridge', executable='parameter_bridge',
+    #                     arguments=['/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model'])
 
-    message_transmit4 = Node(package='ros_gz_bridge', executable='parameter_bridge',
-                        arguments=['/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry'])
+    # message_transmit4 = Node(package='ros_gz_bridge', executable='parameter_bridge',
+    #                     arguments=['/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry'])
 
  
 
@@ -95,8 +95,8 @@ def generate_launch_description():
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
-        message_transmit1,
-        message_transmit2,
-        message_transmit3,
-        message_transmit4,
+        # message_transmit1,
+        # message_transmit2,
+        # message_transmit3,
+        # message_transmit4,
     ])
